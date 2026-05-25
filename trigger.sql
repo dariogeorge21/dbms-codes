@@ -49,6 +49,7 @@ FOR EACH ROW
 BEGIN
     IF NEW.mark < 50 THEN
         DBMS_OUTPUT.PUT_LINE('Mark cannot be less than 50.'); -- Prints a message to the console if the new mark is less than 50
+        RAISE_APPLICATION_ERROR(-20001, 'Mark cannot be less than 50.'); -- Raises an application error to prevent the insert operation if the new mark is less than 50 with a custom error message.
     END IF;
 END;
 
@@ -63,15 +64,15 @@ BEGIN
         UPDATE STUDENTS
         SET grade = 'A'
         WHERE id = NEW.id;
-    ELSIF NEW.mark >= 80 THEN
+    ELSEIF NEW.mark >= 80 THEN
         UPDATE STUDENTS
         SET grade = 'B'
         WHERE id = NEW.id;
-    ELSIF NEW.mark >= 70 THEN
+    ELSEIF NEW.mark >= 70 THEN
         UPDATE STUDENTS
         SET grade = 'C'
         WHERE id = NEW.id;
-    ELSIF NEW.mark >= 60 THEN
+    ELSEIF NEW.mark >= 60 THEN
         UPDATE STUDENTS
         SET grade = 'D'
         WHERE id = NEW.id;
